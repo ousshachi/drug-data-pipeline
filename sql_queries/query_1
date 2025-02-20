@@ -1,0 +1,11 @@
+SELECT 
+    date AS date_commande,
+    SUM(prod_qty * prod_price) AS ventes
+FROM 
+    `my_project.servier.TRANSACTION`
+WHERE 
+    date BETWEEN DATE(2019, 1, 1) AND DATE(2019, 12, 31)
+GROUP BY 
+    date
+ORDER BY 
+    date
