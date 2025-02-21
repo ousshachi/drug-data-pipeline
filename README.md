@@ -167,9 +167,17 @@ DATA_PIPELINE_PROJECT
 └── requirements.txt
 </code></pre>
 
-### Execute test
+### Execute all test
 
 <pre><code>pytest</code></pre>
+
+
+### Execute a specific test
+
+<pre><code>
+  cd /my_project/test/unit
+  pytest name_of_the_test.py    
+</code></pre>
 
 ### Run Program
 
@@ -177,3 +185,13 @@ DATA_PIPELINE_PROJECT
   cd /my_project/src
   pyton main.py 
 </code></pre>
+
+###  output
+
+<pre><code>
+   /my_project/src/output/link_graph/drug_mentions_graph.json
+   /my_project/src/output/ad_hoc/most_mentioned_journal.json
+</code></pre>
+
+
+[Pour aller plus loin](POUR_ALLER_PLUS_LOIN.md)
