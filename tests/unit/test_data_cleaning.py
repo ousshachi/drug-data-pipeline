@@ -1,7 +1,10 @@
+import sys
+import os
 import pytest
 from unittest.mock import patch, MagicMock
 import pandas as pd
 from src.data_transform.data_cleaning import clean_data, save_data_prepared
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 
 # Sample DataFrames for testing
