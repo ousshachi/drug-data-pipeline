@@ -128,25 +128,31 @@ Pour que cette modification soit persistante, ajoutez la ligne suivante à la fi
 
 # Project Structure
 <pre><code>
-DATA_PIPELINE_PROJECT [WSL: UBUNTU]
+DATA_PIPELINE_PROJECT
 ├── data
 ├── myvenv
 ├── sql_queries
+├    └── query1
+├    └── query2
 ├── src
 │   ├── ad_hoc
+│   │   ├── __init__.py
 │   │   └── ad_hoc.py
 │   ├── data_extract
 │   │   ├── __init__.py
 │   │   └── extract.py
 │   ├── data_load
+│   │   ├── __init__.py
+│   │   ├── load.py
 │   ├── data_transform
 │   │   └── utils
-│   │       ├── __init__.py
-│   │       └── utils.py
-│   ├── data_cleaning.py
-│   ├── data_processing.py
-│   ├── drug_mentions.py
-│   ├── relationships.py
+│   │   |  ├── __init__.py
+│   │   ├  └── utils.py
+│   │   ├── __init__.py
+│   │   ├── data_cleaning.py
+│   │   ├── data_processing.py
+│   │   ├── drug_mentions.py
+│   │   ├── relationships.py
 │   ├── config.py
 │   └── main.py
 ├── tests
