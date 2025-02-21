@@ -193,5 +193,5 @@ DATA_PIPELINE_PROJECT
    /my_project/src/output/ad_hoc/most_mentioned_journal.json
 </code></pre>
 
-###  Pour aller plus loi
+###  Pour aller plus loin
 [Pour aller plus loin : cliquez ici ](POUR_ALLER_PLUS_LOIN.md)
