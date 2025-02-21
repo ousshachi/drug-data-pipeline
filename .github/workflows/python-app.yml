@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,9 +18,10 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies and run tests with coverage report
+      - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt pytest pytest-cov 
-          pytest --cov=src tests/
+          pip install -r requirements.txt pytest pytest-cov
+
+      - name: Run tests with coverage report
+        run: |
+          pytest --cov --cov-report term-missing tests/unit
