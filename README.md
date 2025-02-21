@@ -124,3 +124,39 @@ Vérifiez la variable d'environnement :
 Pour que cette modification soit persistante, ajoutez la ligne suivante à la fin de votre fichier `~/.bashrc` :
 
 <pre><code>source ~/.bashrc</code></pre>
+
+
+# Project Structure
+
+DATA_PIPELINE_PROJECT [WSL: UBUNTU]
+├── data
+├── myvenv
+├── sql_queries
+├── src
+│   ├── ad_hoc
+│   │   └── ad_hoc.py
+│   ├── data_extract
+│   │   ├── __init__.py
+│   │   └── extract.py
+│   ├── data_load
+│   ├── data_transform
+│   │   └── utils
+│   │       ├── __init__.py
+│   │       └── utils.py
+│   ├── data_cleaning.py
+│   ├── data_processing.py
+│   ├── drug_mentions.py
+│   ├── relationships.py
+│   ├── config.py
+│   └── main.py
+├── tests
+│   ├── test_output
+│   └── unit
+│       └── config_test.py
+├── .gitignore
+├── POUR_ALLER_PLUS_LOIN.md
+├── pyproject.toml
+├── pytest.ini
+├── README.md
+└── requirements.txt
+
