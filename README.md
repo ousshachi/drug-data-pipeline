@@ -11,7 +11,9 @@ Pour créer un environnement virtuel Python 3.11.x sous WSL (Windows Subsystem f
 - Ouvrez votre terminal WSL.
 - Exécutez la commande suivante pour vérifier la version de Python :
 
+undefined
 python3 --version
+undefined
 
 
 Si la version affichée est inférieure à 3.11.x, vous devrez installer Python 3.11.x.
