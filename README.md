@@ -186,7 +186,7 @@ DATA_PIPELINE_PROJECT
   pyton main.py 
 </code></pre>
 
-###  output
+###  outputs
 
 <pre><code>
    /my_project/src/output/link_graph/drug_mentions_graph.json
