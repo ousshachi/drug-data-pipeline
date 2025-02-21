@@ -167,7 +167,7 @@ DATA_PIPELINE_PROJECT
 └── requirements.txt
 </code></pre>
 
-### Execute all test
+### Execute all tests
 
 <pre><code>pytest</code></pre>
 
