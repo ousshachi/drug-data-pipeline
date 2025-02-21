@@ -1,7 +1,6 @@
 import logging
-import pandas as pd
-from src.data_extract.extract import load_csv
-from src.config import DRUGS_FILE, PUBMED_CSV_FILE, CLINICAL_TRIALS_CSV_FILE
+from src.data_extract.extract import load_csv,load_json
+from src.config import DRUGS_FILE, PUBMED_CSV_FILE, CLINICAL_TRIALS_CSV_FILE,PUBMED_JSON_FILE
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -37,11 +36,6 @@ def load_csv_files():
 
     return dataframes
 
-
-import logging
-import pandas as pd
-from src.data_extract.extract import load_json
-from src.config import PUBMED_JSON_FILE
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")

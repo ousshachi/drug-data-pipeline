@@ -3,6 +3,7 @@ from data_transform.data_processing import load_csv_files
 from data_transform.drug_mentions import find_mentions
 from data_transform.relationships import build_relationships
 from data_transform.data_cleaning import clean_data, save_data_prepared
+from ad_hoc.ad_hoc import get_top_journal_by_unique_drugs
 from data_load.load import save_to_json
 from src import config
 
@@ -47,6 +48,15 @@ def process_data():
         save_to_json(relationships, config.OUTPUT_JSON_PATH)
 
         logging.info("✅ Data processing completed successfully.")
+
+        logging.info("=" * 50)
+        logging.info(f"7- Generating ad_hoc...\n")
+        dataframe_df = get_top_journal_by_unique_drugs(config.OUTPUT_JSON_PATH)
+
+        logging.info("=" * 50)
+        logging.info(f"8- Saving adoc file {config.AD_HOC_OUTPUT_PATH}...\n")
+        save_to_json(dataframe_df,config.AD_HOC_OUTPUT_PATH)
+
         return relationships
 
     except Exception as e:
