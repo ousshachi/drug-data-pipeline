@@ -166,3 +166,14 @@ DATA_PIPELINE_PROJECT
 ├── README.md
 └── requirements.txt
 </code></pre>
+
+### Execute test
+
+<pre><code>pytest</code></pre>
+
+### Run Program
+
+<pre><code>
+  cd /my_project/src
+  pyton main.py 
+</code></pre>
