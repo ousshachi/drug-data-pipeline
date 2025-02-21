@@ -127,7 +127,7 @@ Pour que cette modification soit persistante, ajoutez la ligne suivante à la fi
 
 
 # Project Structure
-
+<pre><code>
 DATA_PIPELINE_PROJECT [WSL: UBUNTU]
 ├── data
 ├── myvenv
@@ -159,4 +159,4 @@ DATA_PIPELINE_PROJECT [WSL: UBUNTU]
 ├── pytest.ini
 ├── README.md
 └── requirements.txt
-
+</code></pre>
