@@ -5,7 +5,7 @@ Pourriez-vous décrire les modifications qu’il faudrait apporter, s’il y en 
 
 # Réponse :
 
-Pour gérer efficacement des fichiers (CSV et JSON  et autre fomats) de plusieurs téraoctets ou des millions de fichiers, voici les éléments à considérer et les modifications à apporter au code :
+Pour gérer efficacement des fichiers (CSV et JSON  et autre formats) de plusieurs téraoctets ou des millions de fichiers, voici les éléments à considérer et les modifications à apporter au code :
 
 ## 1. Utilisation de Google Cloud Storage (GCS)
 
