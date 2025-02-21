@@ -20,8 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt pytest pytest-cov
+          pip install --upgrade pip  # Upgrade pip
+          pip install --upgrade setuptools wheel # Upgrade setup tools
+          pip install --no-cache-dir -r requirements.txt pytest pytest-cov  # Install dependencies
 
       - name: Run tests with coverage report
         run: |
-          pytest --cov --cov-report term-missing tests/unit
+          pytest --cov=src --cov-report term-missing tests/unit  # Corrected test path based on project structure
