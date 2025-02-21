@@ -1,5 +1,6 @@
 import pandas as pd
 import logging
+import json
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -29,10 +30,6 @@ def load_csv(file_path: str) -> pd.DataFrame:
         logging.error(f"❌ Unexpected error while loading CSV {file_path}: {e}", exc_info=True)
 
     return None  # Return None instead of raising an error
-
-import pandas as pd
-import logging
-import json
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
