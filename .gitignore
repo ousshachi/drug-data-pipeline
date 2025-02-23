@@ -188,3 +188,6 @@ airflow.db
 
 # Ignore les fichiers de configuration locaux (si présents)
 airflow.cfg
+
+# Ignore outputs files
+output/
