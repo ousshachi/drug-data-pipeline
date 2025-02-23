@@ -170,3 +170,21 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore le répertoire airflow et tous ses sous-répertoires
+airflow/
+
+# Ignore les fichiers de log d'Airflow
+airflow-scheduler.log
+airflow-webserver.log
+nohup.out
+
+# Ignore les logs d'Airflow dans un répertoire spécifique
+logs/
+
+# Ignore le fichier de base de données SQLite d'Airflow (si utilisé)
+airflow.db
+
+
+# Ignore les fichiers de configuration locaux (si présents)
+airflow.cfg
