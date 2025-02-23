@@ -4,9 +4,14 @@ import logging
 from typing import Dict, List
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-def find_mentions(pubmed_df: pd.DataFrame, clinical_trials_df: pd.DataFrame, drugs_df: pd.DataFrame) -> List[Dict[str, str]]:
+
+def find_mentions(
+    pubmed_df: pd.DataFrame, clinical_trials_df: pd.DataFrame, drugs_df: pd.DataFrame
+) -> List[Dict[str, str]]:
     """
     Identify mentions of drugs in publications from PubMed and ClinicalTrials dataframes.
 
@@ -32,26 +37,35 @@ def find_mentions(pubmed_df: pd.DataFrame, clinical_trials_df: pd.DataFrame, dru
     }
 
     mentions = []
-    drug_patterns = {drug: re.compile(rf"\b{re.escape(drug)}\b", re.IGNORECASE) for drug in drugs_df["drug"].dropna()}
+    drug_patterns = {
+        drug: re.compile(rf"\b{re.escape(drug)}\b", re.IGNORECASE)
+        for drug in drugs_df["drug"].dropna()
+    }
 
     for source_name, source_data in data_sources.items():
         df, title_col = source_data["df"], source_data["title_col"]
 
         if title_col not in df.columns:
-            raise ValueError(f"Missing required '{title_col}' column in {source_name} dataframe.")
+            raise ValueError(
+                f"Missing required '{title_col}' column in {source_name} dataframe."
+            )
 
         df = df.dropna(subset=[title_col])  # Remove rows with empty titles
 
         for drug, pattern in drug_patterns.items():
             matches = df[df[title_col].str.contains(pattern, regex=True, na=False)]
             for _, row in matches.iterrows():
-                mentions.append({
-                    "drug": drug,
-                    "source": source_name,
-                    "title": row[title_col],
-                    "journal": row.get("journal", ""),
-                    "date": row.get("date", "") if pd.notna(row.get("date")) else "",
-                })
+                mentions.append(
+                    {
+                        "drug": drug,
+                        "source": source_name,
+                        "title": row[title_col],
+                        "journal": row.get("journal", ""),
+                        "date": row.get("date", "")
+                        if pd.notna(row.get("date"))
+                        else "",
+                    }
+                )
 
     logging.info(f"Found {len(mentions)} drug mentions in publications.")
     return mentions

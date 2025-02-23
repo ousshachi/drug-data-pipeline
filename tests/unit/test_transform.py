@@ -1,15 +1,23 @@
-import pandas as pd
-from src.data_transform.drug_mentions import find_mentions
 from src.data_transform.relationships import build_relationships
 
 
 def test_build_relationships_from_clinical_trials():
     """Tester la construction de relations à partir des mentions dans les essais cliniques."""
     mentions = [
-        {"drug": "DrugA", "source": "clinical_trials", "title": "Trial with DrugA",
-         "journal": "JournalX", "date": "2025-01-01"},
-        {"drug": "DrugB", "source": "clinical_trials", "title": "Another trial mentioning DrugB",
-         "journal": "JournalY", "date": "2025-01-02"}
+        {
+            "drug": "DrugA",
+            "source": "clinical_trials",
+            "title": "Trial with DrugA",
+            "journal": "JournalX",
+            "date": "2025-01-01",
+        },
+        {
+            "drug": "DrugB",
+            "source": "clinical_trials",
+            "title": "Another trial mentioning DrugB",
+            "journal": "JournalY",
+            "date": "2025-01-02",
+        },
     ]
 
     relationships = build_relationships(mentions)

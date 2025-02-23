@@ -3,7 +3,10 @@ import os
 import logging
 
 # Configuration du logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def save_to_json(data: dict, file_output_path: str) -> None:
     """
@@ -25,7 +28,7 @@ def save_to_json(data: dict, file_output_path: str) -> None:
         os.makedirs(os.path.dirname(file_output_path), exist_ok=True)
 
         # Sauvegarde du fichier JSON
-        with open(file_output_path, 'w', encoding='utf-8') as file:
+        with open(file_output_path, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         logging.info(f"✔ JSON file successfully saved at: {file_output_path}")

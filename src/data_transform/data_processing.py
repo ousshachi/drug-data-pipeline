@@ -1,9 +1,12 @@
 import logging
-from src.data_extract.extract import load_csv,load_json
-from src.config import DRUGS_FILE, PUBMED_CSV_FILE, CLINICAL_TRIALS_CSV_FILE,PUBMED_JSON_FILE
+from data_extract.extract import load_csv, load_json
+from config import (
+    DRUGS_FILE,
+    PUBMED_CSV_FILE,
+    CLINICAL_TRIALS_CSV_FILE,
+    PUBMED_JSON_FILE,
+)
 
-# Configuration du logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 def load_csv_files():
     """
@@ -16,7 +19,7 @@ def load_csv_files():
     csv_files = {
         "PubMed": PUBMED_CSV_FILE,
         "ClinicalTrials": CLINICAL_TRIALS_CSV_FILE,
-        "Drugs": DRUGS_FILE
+        "Drugs": DRUGS_FILE,
     }
 
     dataframes = {}
@@ -37,9 +40,6 @@ def load_csv_files():
     return dataframes
 
 
-# Configuration du logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
 def load_json_file():
     """
     Load PubMed JSON dataset and return it as a DataFrame.
@@ -50,12 +50,14 @@ def load_json_file():
     try:
         logging.info(f"📂 Loading PubMed JSON file from: {PUBMED_JSON_FILE}...")
         pubmed_json_df = load_json(PUBMED_JSON_FILE)
-        logging.info(f"✔ PubMed JSON loaded successfully. {pubmed_json_df.shape[0]} rows found.")
+        logging.info(
+            f"✔ PubMed JSON loaded successfully. {pubmed_json_df.shape[0]} rows found."
+        )
         return pubmed_json_df
 
     except FileNotFoundError:
         logging.error(f"❌ PubMed JSON file not found at path: {PUBMED_JSON_FILE}")
     except ValueError as e:
         logging.error(f"❌ Error loading PubMed JSON: {e}")
-    
+
     return None

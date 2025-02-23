@@ -1,10 +1,12 @@
 import logging
 import json
 from collections import defaultdict
-from src import config
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def get_top_journal_by_unique_drugs(json_file: str) -> str:
     """
@@ -18,7 +20,7 @@ def get_top_journal_by_unique_drugs(json_file: str) -> str:
     """
     try:
         # Load the JSON file
-        with open(json_file, 'r', encoding='utf-8') as f:
+        with open(json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         # Dictionary to count unique drugs per journal
@@ -34,7 +36,11 @@ def get_top_journal_by_unique_drugs(json_file: str) -> str:
         # Find the journal with the most unique drugs
         top_journal = max(journal_drug_map.items(), key=lambda x: len(x[1]))
 
-        logging.info(f"The journal mentioning the most unique drugs is '{top_journal[0]}' with {len(top_journal[1])} unique drugs.")
+        logging.info(
+            f"The journal mentioning the most unique drugs is "
+            f"'{top_journal[0]}' with {len(top_journal[1])} unique drugs."
+        )
+
         return top_journal[0]
 
     except FileNotFoundError:

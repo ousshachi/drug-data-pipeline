@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def standardize_date_format(df: pd.DataFrame, date_column: str) -> pd.DataFrame:
     """
     Standardizes the date format to 'YYYY-MM-DD' for a given column.
@@ -12,13 +13,16 @@ def standardize_date_format(df: pd.DataFrame, date_column: str) -> pd.DataFrame:
         pd.DataFrame: The dataframe with standardized date format.
     """
     try:
-        df[date_column] = pd.to_datetime(df[date_column], errors='coerce').dt.strftime('%Y-%m-%d')
+        df[date_column] = pd.to_datetime(df[date_column], errors="coerce").dt.strftime(
+            "%Y-%m-%d"
+        )
         df[date_column] = df[date_column].replace("NaT", "")
         return df
     except KeyError:
         raise ValueError(f"Column '{date_column}' not found in the dataframe.")
     except Exception as e:
         raise Exception(f"Error standardizing date format: {e}")
+
 
 def convert_id_to_string(df: pd.DataFrame, id_column: str) -> pd.DataFrame:
     """
@@ -39,6 +43,7 @@ def convert_id_to_string(df: pd.DataFrame, id_column: str) -> pd.DataFrame:
     except Exception as e:
         raise Exception(f"Error converting ID column to string: {e}")
 
+
 def sanitize_title_text(df: pd.DataFrame, title_column: str) -> pd.DataFrame:
     """
     Sanitizes and normalizes the text in the title column by:
@@ -55,16 +60,26 @@ def sanitize_title_text(df: pd.DataFrame, title_column: str) -> pd.DataFrame:
         pd.DataFrame: The dataframe with sanitized title text.
     """
     try:
-        df[title_column] = df[title_column].str.encode('ascii', 'ignore').str.decode('utf-8')
-        df[title_column] = df[title_column].str.replace(r'[^\w\s-]', '', regex=True)
-        df[title_column] = df[title_column].str.title().str.strip().str.replace(r'\s+', ' ', regex=True)
+        df[title_column] = (
+            df[title_column].str.encode("ascii", "ignore").str.decode("utf-8")
+        )
+        df[title_column] = df[title_column].str.replace(r"[^\w\s-]", "", regex=True)
+        df[title_column] = (
+            df[title_column]
+            .str.title()
+            .str.strip()
+            .str.replace(r"\s+", " ", regex=True)
+        )
         return df
     except KeyError:
         raise ValueError(f"Column '{title_column}' not found in the dataframe.")
     except Exception as e:
         raise Exception(f"Error sanitizing title text: {e}")
 
-def remove_rows_with_empty_titles_or_journals(df: pd.DataFrame, title_column: str, journal_column: str) -> pd.DataFrame:
+
+def remove_rows_with_empty_titles_or_journals(
+    df: pd.DataFrame, title_column: str, journal_column: str
+) -> pd.DataFrame:
     """
     Removes rows where either the title or the journal column is empty or NaN.
 
@@ -79,9 +94,12 @@ def remove_rows_with_empty_titles_or_journals(df: pd.DataFrame, title_column: st
     try:
         return df.dropna(subset=[title_column, journal_column])
     except KeyError:
-        raise ValueError(f"Columns '{title_column}' or '{journal_column}' not found in the dataframe.")
+        raise ValueError(
+            f"Columns '{title_column}' or '{journal_column}' not found in the dataframe."
+        )
     except Exception as e:
         raise Exception(f"Error removing rows with empty titles or journals: {e}")
+
 
 def remove_duplicate_ids_and_reindex(df: pd.DataFrame, id_column: str) -> pd.DataFrame:
     """

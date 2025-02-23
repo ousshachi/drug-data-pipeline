@@ -1,7 +1,7 @@
 import os
 
 # Base directory for test data
-DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 # Paths to specific test files
 DRUGS_FILE = os.path.join(DATA_DIR, "drugs.csv")
