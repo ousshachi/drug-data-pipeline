@@ -33,7 +33,9 @@ def get_top_journal_by_unique_drugs(json_file: str) -> dict:
                 journal = publication.get("journal")
                 if journal:
                     journal_drug_map[journal].add(drug)
-                    journal_drug_count_map[journal] += 1  # Count the occurrence of the journal
+                    journal_drug_count_map[
+                        journal
+                    ] += 1  # Count the occurrence of the journal
 
         # Find the journal with the most unique drugs
         top_journal = max(journal_drug_map.items(), key=lambda x: len(x[1]))
@@ -42,10 +44,7 @@ def get_top_journal_by_unique_drugs(json_file: str) -> dict:
         top_journal_occurrences = journal_drug_count_map[top_journal[0]]
 
         # Prepare the output in the desired format
-        result = {
-            "journal": top_journal[0],
-            "mentions": top_journal_occurrences
-        }
+        result = {"journal": top_journal[0], "mentions": top_journal_occurrences}
 
         logging.info(
             f"The journal mentioning the most unique drugs is "

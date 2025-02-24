@@ -10,7 +10,7 @@ CLINICAL_TRIALS_CSV_FILE = os.path.join(DATA_DIR, "clinical_trials.csv")
 PUBMED_JSON_FILE = os.path.join(DATA_DIR, "pubmed.json")
 
 # Dossiers de sortie
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "output")
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 LINK_GRAPH_DIR = os.path.join(OUTPUT_DIR, "link_graph")
 AD_HOC_DIR = os.path.join(OUTPUT_DIR, "ad_hoc")
 

@@ -1,5 +1,12 @@
-import logging
+import sys
+import os
+
+# Dynamically add project root to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from config import OUTPUT_JSON_PATH, AD_HOC_OUTPUT_PATH
+import logging
+
 
 from data_transform.data_processing import load_csv_files
 from data_transform.drug_mentions import find_mentions
