@@ -132,57 +132,71 @@ Pour que cette modification soit persistante, ajoutez la ligne suivante à la fi
 
 # Project Structure
 <pre><code>
-DATA_PIPELINE_PROJECT
-├── data
-├── myvenv
-├── sql_queries
-├    └── query1
-├    └── query2
-├── src
-│   ├── ad_hoc
-│   │   ├── __init__.py
-│   │   └── ad_hoc.py
-│   ├── data_extract
-│   │   ├── __init__.py
-│   │   └── extract.py
-│   ├── data_load
-│   │   ├── __init__.py
-│   │   ├── load.py
-│   ├── data_transform
-│   │   └── utils
-│   │   |  ├── __init__.py
-│   │   ├  └── utils.py
-│   │   ├── __init__.py
-│   │   ├── data_cleaning.py
-│   │   ├── data_processing.py
-│   │   ├── drug_mentions.py
-│   │   ├── relationships.py
-│   ├── config.py
-│   └── main.py
-├── tests
-│   ├── test_output
-│   └── unit
-│       └── config_test.py
-├── .gitignore
-├── POUR_ALLER_PLUS_LOIN.md
-├── pyproject.toml
-├── pytest.ini
-├── README.md
-└── requirements.txt
+📦 DATA_PIPELINE_PROJECT  
+├── 📂 .github  
+│   └── 📂 workflows  
+│       └── 📄 python-app.yml  
+├── 📂 dags  
+│   ├── 📄 __init__.py  
+│   └── 📄 data_pipeline_dag.py  
+├── 📂 data  
+│   ├── 📄 clinical_trials.csv  
+│   ├── 📄 drugs.csv  
+│   ├── 📄 pubmed.csv  
+│   └── 📄 pubmed.json  
+├── 📂 sql_queries  
+│   ├── 📄 query_1  
+│   └── 📄 query_2  
+├── 📂 src  
+│   ├── 📂 ad_hoc  
+│   │   ├── 📄 __init__.py  
+│   │   └── 📄 ad_hoc.py  
+│   ├── 📂 data_extract  
+│   │   ├── 📄 __init__.py  
+│   │   └── 📄 extract.py  
+│   ├── 📂 data_load  
+│   │   ├── 📄 __init__.py  
+│   │   └── 📄 load.py  
+│   ├── 📂 data_transform  
+│   │   ├── 📂 utils  
+│   │   │   ├── 📄 __init__.py  
+│   │   │   ├── 📄 data_cleaning.py  
+│   │   │   ├── 📄 data_processing.py  
+│   │   │   ├── 📄 drug_mentions.py  
+│   │   │   └── 📄 relationships.py  
+│   └── 📄 main.py  
+├── 📂 tests  
+│   └── 📂 unit  
+│       ├── 📄 test_data_cleaning.py  
+│       ├── 📄 test_data_processing.py  
+│       ├── 📄 test_data_transform_utils.py  
+│       ├── 📄 test_drug_mentions.py  
+│       ├── 📄 test_extract.py  
+│       ├── 📄 test_relationships.py  
+│       └── 📄 test_transform.py  
+├── 📄 .flake8  
+├── 📄 .gitignore  
+├── 📄 Makefile  
+├── 📄 POUR_ALLER_PLUS_LOIN.md  
+├── 📄 README.md  
+├── 📄 config.py  
+├── 📄 pyproject.toml  
+├── 📄 pytest.ini  
+└── 📄 requirements.txt  
 </code></pre>
 
-### Execute all tests
+### Executer tous les tests
 Se placer dans le reperoire de votre projet : /home/user/data_pipeline_project*
 <pre><code>pytest</code></pre>
 
 
-### Execute a specific test
+### Executer un test spécifique
  Se placer dans le reperoire de test : *cd /home/user/data_pipeline_project/tests/unit*
 <pre><code>
   pytest name_of_the_test.py    
 </code></pre>
 
-### Run Program
+### Executer le programme (avec le programme main)
  Se placer dans le reperoire src de votre project : *cd /home/user/data_pipeline_project/src*
 <pre><code>
   pyton main.py 
@@ -196,13 +210,13 @@ Les deux fichiers sont chacun dans un dossier : link_graph pour *drug_mentions_g
    home/user/data_pipeline/output/ad_hoc/most_mentioned_journal.json
 </code></pre>
 
-###  Execute Dag
+###  Executer le Dag
 Se placer dans le reperoire de votre projet : */home/user/data_pipeline_project* et executer le MakeFile
 <pre><code>
    make
 </code></pre>
 
-###  Vérifier les variable d'environement de votre système et modifer si necessaire avec les commandes ci dessous
+###  Vérifier les variables d'environement de votre système et les modifer si necessaire avec les commandes ci dessous
 Se placer dans le reperoire de votre projet : */home/user/data_pipeline_project* et executer le MakeFile
 <pre><code>
    echo $AIRFLOW_HOME
