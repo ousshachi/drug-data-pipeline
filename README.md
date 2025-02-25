@@ -236,4 +236,4 @@ Les deux fichiers sont chacun dans un dossier : link_graph pour *drug_mentions_g
 
 
 ###  Pour aller plus loin
-[Réponse suir la question pour aller plus loin : cliquez ici ](POUR_ALLER_PLUS_LOIN.md)
+[Réponse sur la question pour aller plus loin : cliquez ici ](POUR_ALLER_PLUS_LOIN.md)
