@@ -158,12 +158,14 @@ Pour que cette modification soit persistante, ajoutez la ligne suivante à la fi
 │   │   ├── 📄 __init__.py  
 │   │   └── 📄 load.py  
 │   ├── 📂 data_transform  
+│   │   ├── 📄 __init__.py  
+│   │   ├── 📄 data_cleaning.py  
+│   │   ├── 📄 data_processing.py  
+│   │   ├── 📄 drug_mentions.py  
+│   │   ├── 📄 relationships.py  
 │   │   ├── 📂 utils  
 │   │   │   ├── 📄 __init__.py  
-│   │   │   ├── 📄 data_cleaning.py  
-│   │   │   ├── 📄 data_processing.py  
-│   │   │   ├── 📄 drug_mentions.py  
-│   │   │   └── 📄 relationships.py  
+│   │   │   └── 📄 utils.py  
 │   └── 📄 main.py  
 ├── 📂 tests  
 │   └── 📂 unit  
@@ -183,6 +185,7 @@ Pour que cette modification soit persistante, ajoutez la ligne suivante à la fi
 ├── 📄 pyproject.toml  
 ├── 📄 pytest.ini  
 └── 📄 requirements.txt  
+
 </code></pre>
 
 ### Executer tous les tests
