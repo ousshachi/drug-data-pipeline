@@ -1,7 +1,7 @@
 # Variables
 PYTHON = python
 PIP = pip
-VENV = myvenv
+VENV = venv
 ACTIVATE = . $(VENV)/bin/activate
 SRC_DIR = src
 TEST_DIR = tests
