@@ -50,15 +50,17 @@ Si la version affichée est inférieure à 3.11.x, vous devrez installer Python 
 - Naviguez vers le répertoire de votre projet :
 
 <pre><code>cd /chemin/vers/votre/projet</code></pre>
+ Exemple : *cd /home/user/data_pipeline_project*
 
 <pre><code>python3.11 -m venv nom_de_votre_env</code></pre>
-
+ Exemple : *python3.11 -m venv venv*
 
 Remplacez `nom_de_votre_env` par le nom souhaité pour votre environnement virtuel.
 
 - Activez l'environnement :
 
 <pre><code>source nom_de_votre_env/bin/activate</code></pre>
+ Exemple: *source venv/bin/activate*
 
 Vous devriez voir le nom de l'environnement virtuel apparaître dans votre invite de commande, indiquant que l'environnement est activé.
 
@@ -78,6 +80,7 @@ Pour installer les dépendances listées dans un fichier `requirements.txt` sous
 - Si vous n'avez pas encore créé d'environnement virtuel, créez-en un avec la commande :
 
 <pre><code>python3.11 -m venv mon_env</code></pre>
+Exemple : *python3.11 -m venv venv*
 
 
 Remplacez `mon_env` par le nom souhaité pour votre environnement virtuel.
@@ -85,7 +88,7 @@ Remplacez `mon_env` par le nom souhaité pour votre environnement virtuel.
 - Activez l'environnement virtuel :
 
 <pre><code>source mon_env/bin/activate</code></pre>
-
+Exemple : *source venv/bin/activate*
 
 Vous devriez voir le nom de l'environnement virtuel apparaître dans votre invite de commande, indiquant que l'environnement est activé.
 
@@ -112,6 +115,7 @@ Cette commande lira le fichier `requirements.txt` et installera toutes les dépe
 Pour exécuter pytest, identifiez le répertoire src :
 
 <pre><code>export PYTHONPATH="/home/user/myproject:$PYTHONPATH"</code></pre>
+Exemple : *export PYTHONPATH="/home/user/data_pipeline_project:$PYTHONPATH"*
 
 
 Vérifiez la variable d'environnement :
@@ -168,30 +172,68 @@ DATA_PIPELINE_PROJECT
 </code></pre>
 
 ### Execute all tests
-
+Se placer dans le reperoire de votre projet : /home/user/data_pipeline_project*
 <pre><code>pytest</code></pre>
 
 
 ### Execute a specific test
-
+ Se placer dans le reperoire de test : *cd /home/user/data_pipeline_project/tests/unit*
 <pre><code>
-  cd /my_project/test/unit
   pytest name_of_the_test.py    
 </code></pre>
 
 ### Run Program
-
+ Se placer dans le reperoire src de votre project : *cd /home/user/data_pipeline_project/src*
 <pre><code>
-  cd /my_project/src
   pyton main.py 
 </code></pre>
 
 ###  outputs
-
+2 fichiers sont générés dans le dossier output ( crée par le programme) : */home/user/data_pipeline/output*
+Les deux fichiers sont chacun dans un dossier : link_graph pour *drug_mentions_graph.json* et ad_hoc pour *most_mentioned_journal.json*
 <pre><code>
-   /my_project/src/output/link_graph/drug_mentions_graph.json
-   /my_project/src/output/ad_hoc/most_mentioned_journal.json
+   home/user/data_pipeline/output/link_graph/drug_mentions_graph.json
+   home/user/data_pipeline/output/ad_hoc/most_mentioned_journal.json
 </code></pre>
 
+###  Execute Dag
+Se placer dans le reperoire de votre projet : */home/user/data_pipeline_project* et executer le MakeFile
+<pre><code>
+   make
+</code></pre>
+
+###  Vérifier les variable d'environement de votre système et modifer si necessaire avec les commandes ci dessous
+Se placer dans le reperoire de votre projet : */home/user/data_pipeline_project* et executer le MakeFile
+<pre><code>
+   echo $AIRFLOW_HOME
+   echo $PATH
+   export AIRFLOW_HOME=/home/user/data_pipeline_project/airflow
+   export PATH=/home/user/data_pipeline_project/venv/bin:$PATH
+</code></pre>
+
+En cas de problem stop airflow
+<pre><code>
+  make airflow-stop
+</code></pre>
+
+Relancer airflow avec la cammande make : (la commande *make* démarre airflow grace à la commande make *airflow-start*)
+<pre><code>
+  make
+</code></pre>
+
+###  Ouvrir le navigateur avec l'url : http://localhost:8080/home
+### Aller sur le dag data_pipeline_dag avec l'url :  http://localhost:8080/dags/data_pipeline_dag/grid
+### Lancer le job : avec le boutton trigger DAG
+### Suivre l'execution du job
+
+###  outputs
+2 fichiers sont générés dans le dossier output ( crée par le programme) : */home/user/data_pipeline/output*
+Les deux fichiers sont chacun dans un dossier : link_graph pour *drug_mentions_graph.json* et ad_hoc pour *most_mentioned_journal.json*
+<pre><code>
+   home/user/data_pipeline/output/link_graph/drug_mentions_graph.json
+   home/user/data_pipeline/output/ad_hoc/most_mentioned_journal.json
+</code></pre>
+
+
 ###  Pour aller plus loin
-[Pour aller plus loin : cliquez ici ](POUR_ALLER_PLUS_LOIN.md)
+[Réponse suir la question pour aller plus loin : cliquez ici ](POUR_ALLER_PLUS_LOIN.md)
