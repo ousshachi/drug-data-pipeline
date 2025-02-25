@@ -130,7 +130,7 @@ Pour que cette modification soit persistante, ajoutez la ligne suivante à la fi
 <pre><code>source ~/.bashrc</code></pre>
 
 
-# Project Structure
+# Structure du projet
 <pre><code>
 📦 DATA_PIPELINE_PROJECT  
 ├── 📂 .github  
