@@ -1,43 +1,52 @@
 # Variables
 PYTHON = python
 PIP = pip
-VENV = venv
-ACTIVATE = source $(VENV)/bin/activate
+VENV = myvenv
+ACTIVATE = . $(VENV)/bin/activate
 SRC_DIR = src
 TEST_DIR = tests
 DAGS_DIR = dags
-AIRFLOW_HOME = $(PWD)/airflow
 PROJECT_DIR = $(PWD)
-LINK_GRAPH_DIRECTORY =output/link_graph 
-AD_HOC_DIRECTORY = output/ad_hoc
-
+AIRFLOW_HOME = $(PROJECT_DIR)/airflow
+PIPELINE_PROJECT = $(PROJECT_DIR)/dags/data_pipeline_dag.py
 
 # Add project root to PYTHONPATH
-export PYTHONPATH := $(PROJECT_DIR):$(PYTHONPATH)
+export PYTHONPATH := $(PROJECT_DIR):$(PROJECT_DIR)/src
 
 .PHONY: all
-all: install format lint  test run-pipeline airflow-init airflow-start deploy-dags clean
+all: display_variables install format lint test run_pipeline airflow_init airflow_start deploy_dags clean
 
 # Default target (help message)
 .PHONY: help
 help:
 	@echo "Available commands:"
-	@echo "  make install         Install dependencies"
-	@echo "  make lint            Run Flake8 for linting"
-	@echo "  make format          Format code with Black"
-	@echo "  make test            Run all tests with pytest"
-	@echo "  make test-unit       Run unit tests only"
-	@echo "  make test-integration Run integration tests only"
-	@echo "  make run-pipeline    Run the data pipeline locally"
-	@echo "  make airflow-init    Initialize Airflow database and setup"
-	@echo "  make airflow-start   Start Airflow webserver and scheduler"
-	@echo "  make airflow-stop    Stop all running Airflow processes"
-	@echo "  make deploy-dags      Create DAG folder and deploy DAGs"
+	@echo "  make install          Install dependencies"
+	@echo "  make lint             Run Flake8 for linting"
+	@echo "  make format           Format code with Black"
+	@echo "  make test             Run all tests with pytest"
+	@echo "  make run_pipeline     Run the data pipeline locally"
+	@echo "  make airflow_init     Initialize Airflow database and setup"
+	@echo "  make airflow_start    Start Airflow webserver and scheduler"
+	@echo "  make airflow_stop     Stop all running Airflow processes"
+	@echo "  make deploy_dags      Deploy DAGs to Airflow"
 
-# Install dependencies
+.PHONY: display_variables
+display_variables:
+	@echo ################################################################################
+	@echo PROJECT_DIR = $(PROJECT_DIR)
+	@echo AIRFLOW_HOME = $(AIRFLOW_HOME)
+	@echo PIPELINE_PROJECT = $(PIPELINE_PROJECT)
+	@echo ################################################################################
+
+# Install dependencies into the virtual environment
 .PHONY: install
 install:
-	$(PIP) install -r requirements.txt
+	@if [ ! -d "$(VENV)" ]; then \
+		echo "Virtual environment not found, creating..."; \
+		$(PYTHON) -m venv $(VENV); \
+	fi
+	. $(VENV)/bin/activate && $(PIP) install --upgrade pip
+	. $(VENV)/bin/activate && $(PIP) install -r requirements.txt
 
 # Code formatting with Black
 .PHONY: format
@@ -49,34 +58,26 @@ format:
 lint:
 	flake8 $(SRC_DIR) $(TEST_DIR)
 
-#.PHONY: test
+# Run tests
+.PHONY: test
 test:
-	pytest $(SRC_DIR) $(TEST_DIR)	
-
-# Run unit tests only
-.PHONY: test-unit
-#test-unit:
-	pytest $(TEST_DIR)/unit
-
-# Run integration tests only
-.PHONY: test-integration
-test-integration:
-	pytest $(TEST_DIR)/integration
+	pytest $(SRC_DIR) $(TEST_DIR)
 
 # Run the data pipeline locally
-.PHONY: run-pipeline
-run-pipeline:
-	# Create the necessary output directories
-	mkdir -p $(PROJECT_DIR)/$(LINK_GRAPH_DIRECTORY) $(PROJECT_DIR)/$(AD_HOC_DIRECTORY)
-	# Run the DAG
-	dotenv run -- $(PYTHON) $(DAGS_DIR)/data_pipeline_dag.py
+.PHONY: run_pipeline
+run_pipeline:
+	@echo "Running DAG: $(PIPELINE_PROJECT)"
+	@echo "Using Python: $(PYTHON)"
+	dotenv run -- $(PYTHON) $(PIPELINE_PROJECT)
 
 # Airflow initialization (database setup)
-.PHONY: airflow-init
-airflow-init:
-	mkdir -p $(AIRFLOW_HOME) && chmod 755 $(AIRFLOW_HOME)
-	AIRFLOW_HOME=$(AIRFLOW_HOME) airflow db init && \
-	AIRFLOW_HOME=$(AIRFLOW_HOME) airflow users create \
+.PHONY: airflow_init
+airflow_init:
+	@echo "Initializing Airflow..."
+	export AIRFLOW_HOME=$(AIRFLOW_HOME) && \
+	mkdir -p $$AIRFLOW_HOME && chmod 755 $$AIRFLOW_HOME && \
+	airflow db init && \
+	airflow users create \
 		--username admin \
 		--password admin \
 		--firstname Admin \
@@ -85,32 +86,33 @@ airflow-init:
 		--email admin@example.com
 
 # Start Airflow services (webserver and scheduler)
-.PHONY: airflow-start
-airflow-start:
+.PHONY: airflow_start
+airflow_start:
 	@echo "Starting Airflow..."
 	export AIRFLOW_HOME=$(AIRFLOW_HOME) && \
-	nohup airflow webserver --port 8080 > airflow-webserver.log 2>&1 & \
-	nohup airflow scheduler > airflow-scheduler.log 2>&1 & \
-	echo "Airflow started! Logs: airflow-webserver.log, airflow-scheduler.log"
+	nohup airflow webserver --port 8080 > $$AIRFLOW_HOME/airflow-webserver.log 2>&1 & \
+	nohup airflow scheduler > $$AIRFLOW_HOME/airflow-scheduler.log 2>&1 & \
+	echo "Airflow started! Logs: $$AIRFLOW_HOME/airflow-webserver.log, $$AIRFLOW_HOME/airflow-scheduler.log"
 
 # Stop Airflow services
-.PHONY: airflow-stop
-airflow-stop:
+.PHONY: airflow_stop
+airflow_stop:
 	@echo "Stopping Airflow..."
 	pkill -f "airflow webserver"
 	pkill -f "airflow scheduler"
 	@echo "Airflow stopped."
 
 # Deploy DAGs: create DAG folder and copy DAG file
-.PHONY: deploy-dags
-deploy-dags:
-	@echo "Creating DAG folder if it doesn't exist..."
-	mkdir -p $(AIRFLOW_HOME)/dags
-	@echo "Deploying DAG to $(AIRFLOW_HOME)/dags..."
-	cp $(PROJECT_DIR)/dags/data_pipeline_dag.py $(AIRFLOW_HOME)/dags/
+.PHONY: deploy_dags
+deploy_dags:
+	@echo "Deploying DAG to Airflow..."
+	export AIRFLOW_HOME=$(AIRFLOW_HOME) && \
+	mkdir -p $$AIRFLOW_HOME/dags && \
+	cp $(PIPELINE_PROJECT) $$AIRFLOW_HOME/dags/
+	@echo "DAG successfully deployed to $$AIRFLOW_HOME/dags/"
 
 # Clean up temporary files and cache
 .PHONY: clean
 clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -exec rm -rf {} +
+	sudo find . -type f -name "*.py[co]" ! -path "./$(VENV)/*" -delete
+	sudo find . -type d -name "__pycache__" ! -path "./$(VENV)/*" -prune -exec rm -rf {} +
